@@ -92,7 +92,7 @@ public class PdfViewActivity extends AppCompatActivity implements DownloadFile.L
     private void downloadPdf(String inPdfUrl) {
         try {
           if(inPdfUrl.startsWith("file://")) {
-            // downloadFile.download(inPdfUrl, new File(this.getCacheDir(), FileUtil.extractFileNameFromURL(inPdfUrl)).getAbsolutePath());
+            this.onSuccess(inPdfUrl, inPdfUrl.replace("file://", ""));
           } else {
             DownloadFile downloadFile = new DownloadFileUrlConnectionImpl(this, new Handler(), this);
             downloadFile.download(inPdfUrl, new File(this.getCacheDir(), FileUtil.extractFileNameFromURL(inPdfUrl)).getAbsolutePath());
