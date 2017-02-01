@@ -49,6 +49,8 @@ public class PdfViewActivity extends AppCompatActivity implements DownloadFile.L
     private String toolbarColor = "#1191d5";
     private String toolbarTitle;
     private DefaultScrollHandle scrollHandle;
+    private java.net.URI pdfUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,30 +117,6 @@ public class PdfViewActivity extends AppCompatActivity implements DownloadFile.L
         int i = item.getItemId();
         if (i == R.id.menu_close) {
             finish();
-        } else if (i == R.id.menu_share) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            CharSequence[] itemsAlert = {"Copy link", "Open browser"};
-
-            builder.setItems(itemsAlert, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int itemIndex) {
-                    final int COPY_LINK = 0;
-                    final String label = "URL";
-
-                    if (itemIndex == COPY_LINK) {
-                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        ClipData clip = ClipData.newPlainText(label, pdfUrl);
-                        clipboard.setPrimaryClip(clip);
-                        return;
-                    }
-
-                    Intent intentBrowser = new Intent(Intent.ACTION_VIEW);
-                    intentBrowser.setData(Uri.parse(pdfUrl));
-                    startActivity(intentBrowser);
-                }
-            });
-            builder.show();
-
         }
         return true;
     }
